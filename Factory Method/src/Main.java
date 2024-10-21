@@ -3,15 +3,15 @@
 public class Main {
     public static void main(String[] args) {
 
-        SmartphoneCreator smartphoneCreator = new SmartphoneCreator();
+        Creator smartphoneCreator = new SmartphoneCreator();
         Device newSmartphone = smartphoneCreator.factoryMethod("realme");
         newSmartphone.powerOn();
 
-        LaptopCreator laptopCreator = new LaptopCreator();
+        Creator laptopCreator = new LaptopCreator();
         Device newLaptop = laptopCreator.factoryMethod("asus");
         newLaptop.powerOn();
 
-        TabletCreator tabletCreator = new TabletCreator();
+        Creator tabletCreator = new TabletCreator();
         Device newTablet = tabletCreator.factoryMethod("Samsung");
         newTablet.powerOn();
     }
