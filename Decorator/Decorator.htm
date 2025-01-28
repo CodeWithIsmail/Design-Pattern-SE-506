@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Decorator</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#19222E" />
+
+                
+    <link rel="preload" href="/fonts/PTSans/ptsans-regular_en.woff2?1" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/PTSans/ptsans-bold_en.woff2?1" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="/fonts/fontello/fontawesome.woff2?15843843" as="font" type="font/woff2" crossorigin>
+        <link rel="preconnect dns-prefetch" href="https://cdn.paddle.com">
+    <link rel="preconnect dns-prefetch" href="https://www.googletagmanager.com">
+
+    <link rel="alternate" href="https://refactoring.guru/design-patterns/decorator" hreflang="x-default"/>
+    <link rel="alternate" href="https://refactoring.guru/es/design-patterns/decorator" hreflang="es"/>
+    <link rel="alternate" href="https://refactoring.guru/fr/design-patterns/decorator" hreflang="fr"/>
+    <link rel="alternate" href="https://refactoring.guru/ja/design-patterns/decorator" hreflang="ja"/>
+    <link rel="alternate" href="https://refactoring.guru/ko/design-patterns/decorator" hreflang="ko"/>
+    <link rel="alternate" href="https://refactoring.guru/pl/design-patterns/decorator" hreflang="pl"/>
+    <link rel="alternate" href="https://refactoring.guru/pt-br/design-patterns/decorator" hreflang="pt-br"/>
+    <link rel="alternate" href="https://refactoring.guru/ru/design-patterns/decorator" hreflang="ru"/>
+    <link rel="alternate" href="https://refactoring.guru/uk/design-patterns/decorator" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/decorator" hreflang="zh"/>
+
+    <meta name="description" content="Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.">
+
+    <link rel="canonical" href="https://refactoring.guru/design-patterns/decorator"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.png"/>
+
+        <meta property="fb:app_id" content="666819623386327"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="https://refactoring.guru/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+    
+                    <link rel="stylesheet" href="/css/public-packed.min.css?id=cb3ce0b6e73ccb3f31d8ba160e6aa934">
+        <style type="text/css">
+                    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(/fonts/PTSans/ptsans-regular_cyrillic-ext.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(/fonts/PTSans/ptsans-regular_cyrillic.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(/fonts/PTSans/ptsans-regular_latin-ext.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(/fonts/PTSans/ptsans-regular_latin.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(/fonts/PTSans/ptsans-regular_en.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(/fonts/PTSans/ptsans-bold_cyrillic-ext.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(/fonts/PTSans/ptsans-bold_cyrillic.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(/fonts/PTSans/ptsans-bold_latin-ext.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(/fonts/PTSans/ptsans-bold_latin.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(/fonts/PTSans/ptsans-bold_en.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+            </style>
+
+    
+            <script defer src="/js/public.min.js?id=321a61e8ec476c5d446437da17682e14"></script>
+        <script defer src="/js/checkout.min.js?id=99abeb20a0a6ea3e31e8b4c004f55435"></script>
+            <script defer src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SR8Y3GYQYC"></script>
+
+    <script type="application/ld+json">
+        {"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/#organization","name":"Refactoring.Guru","description":"Refactoring.Guru makes it easy for you to discover everything you need to know about refactoring, design patterns, SOLID principles, and other smart programming topics.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/#organizationlogo","url":"https://refactoring.guru/images/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/#organizationlogo"},"founder":{"@id":"https://refactoring.guru/#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/#website","url":"https://refactoring.guru/","name":"Refactoring.Guru","description":"Refactoring.Guru makes it easy for you to discover everything you need to know about refactoring, design patterns, SOLID principles, and other smart programming topics.","author":{"@id":"https://refactoring.guru/#founder"},"publisher":{"@id":"https://refactoring.guru/#organization"},"copyrightYear":2014},{"@type":"WebPage","@id":"https://refactoring.guru/design-patterns/decorator#webpage","url":"https://refactoring.guru/design-patterns/decorator","inLanguage":"en","name":"Decorator","description":"Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.","isPartOf":{"@id":"https://refactoring.guru#website"},"breadcrumb":{"@id":"https://refactoring.guru/design-patterns/decorator#breadcrumb"},"primaryImageOfPage":{"@id":"https://refactoring.guru/design-patterns/decorator#primaryimage"},"image":{"@type":"ImageObject","@id":"https://refactoring.guru/design-patterns/decorator#primaryimage","url":"https://refactoring.guru/images/patterns/content/decorator/decorator-3x.png","width":1920,"height":1200}},{"@type":"Article","@id":"https://refactoring.guru/design-patterns/decorator#article","isPartOf":{"@id":"https://refactoring.guru/design-patterns/decorator#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/design-patterns/decorator#webpage"},"author":{"@id":"https://refactoring.guru#founder"},"publisher":{"@id":"https://refactoring.guru#organization"},"headline":"Decorator","datePublished":"2024-01-01","dateModified":"2025-01-01","articleSection":"Design Patterns","image":{"@id":"https://refactoring.guru/design-patterns/decorator#primaryimage"}},{"@type":"BreadcrumbList","@id":"https://refactoring.guru/design-patterns/decorator#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://refactoring.guru"},{"@type":"ListItem","position":2,"name":"Design Patterns","item":"https://refactoring.guru/design-patterns"},{"@type":"ListItem","position":3,"name":"Structural Patterns","item":"https://refactoring.guru/design-patterns/structural-patterns"}]}] }
+    </script>
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJlbiIsImxvY2FsZV9wcmVmaXgiOiIiLCJsb2NhbGl6ZWRfdXJsX3ByZWZpeCI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImxvY2FsaXplZF91cmxfcHJlZml4X20iOiJodHRwczpcL1wvcmVmYWN0b3JpbmcuZ3VydVwvIiwidXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6ImVuIiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjMiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+            gtag('set', 'linker', {'domains': ["refactoring.guru,refactoringguru.cn"]});
+        gtag('config', 'G-SR8Y3GYQYC', {
+        // Disable default page view, because we're going to report them on our own.
+        // This is done to report traffic on localized domains as part of the main website traffic
+        // See the Chinese overrides below.
+        send_page_view: false,
+    });
+</script>
+
+<script>
+    (() => {
+        // On first page view after returning from social network, we need to send the social login event.
+        (function detectSocialLogin() {
+            let getCookie = function (name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            };
+            window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+            if (window.social_login_provider) {
+                gtag('set', {referrer: null});
+                gtag('event', 'login', {"method": window.social_login_provider});
+                // Delete cookie.
+                document.cookie = 'social_login_provider=; Path=/; Max-Age=-99999999;';
+            }
+        })();
+
+        function trackPageView(location, title) {
+            location = location || document.location.href;
+            title = title || document.title;
+
+            // This is show on https://refactoringguru.cn/ and alike.
+            if (typeof window.analytics_path_prefix === 'string') {
+                if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                    location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+                } else {
+                    location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+                }
+                gtag('set', {
+                    'page_location': location
+                });
+            }
+
+            // This is show on https://refactoring.guru/zh/login and alike.
+            if (typeof window.analytics_location_prefix === 'string') {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+                gtag('set', {
+                    'page_location': location
+                });
+            }
+
+            gtag('event', 'page_view', {
+                page_location: location,
+                page_title: title,
+                locale: window.locale ?? 'en'
+            });
+        }
+
+        if (window.loadContent) {
+            window.onPageLoad = window.onPageLoad || [];
+            window.onPageLoad.push({
+                func: function (context) {
+                    trackPageView(window.location.origin + context.canonicalPath, context.title);
+                },
+                afterAll: true,
+            });
+        }
+        else {
+            trackPageView();
+        }
+    })();
+</script>
+
+
+</head>
+<body class="locale-en   announcement   decorator" data-body_class="decorator">
+
+<div class="body-holder">
+
+            <div class="announcement-block announcement-block-christmas prom" data-id="DIDP-announcement" data-creative-id="en" data-position="top">
+    <span class="a1"></span>
+    <span class="a2"></span>
+    <span class="a3"></span>
+    <span class="a4"></span>
+    <span class="a5"></span>
+
+            <a href="/store">
+            <img src="/images/content-public/ann/winter/snowman.svg?id=2a010474a6b41aae4c46ce19e99672dc" loading="lazy" style="width: 32px; height:32px;vertical-align: middle;">
+            WINTER SALE IS ON!
+            <img src="/images/content-public/ann/winter/sleigh.svg?id=13f4b31b86b1b32313557ad65c13b7e2" loading="lazy" style="width: 32px; height:32px;vertical-align: middle;">
+        </a>
+    
+    <div class="snowflakes">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+
+
+
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                        <div class="pattern page text">
+<article>
+    <div class="breadcrumb">
+                                    <a class="home" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                                / <a class="type" href="/design-patterns">Design Patterns</a>
+                                                / <a class="type" href="/design-patterns/structural-patterns">Structural Patterns</a>
+                        </div>
+    <h1 class="title">Decorator</h1>
+
+    <script type="text/javascript">
+        // Shorten examples titles for users.
+        var h1 = document.getElementsByTagName("H1")[0];
+        if (h1.offsetHeight > 160) {
+            h1.className += ' smaller';
+        }
+
+        // Small beautification for pattern examples.
+        var title = h1.innerHTML;
+        title = title.replace(/^(Java|C\+\+|C#|PHP|Python|Ruby|Delphi): (.*)$/, '<strong>$1:</strong> $2');
+        h1.innerHTML = title;
+    </script>
+
+            <div class="aka">
+            Also known as: <span style="display:inline-block">Wrapper</span>
+        </div>
+    
+    
+
+    <div class="section intent">
+<h2 id="intent"><i class="fa fa-flip-horizontal fa-comment-alt-dots" aria-hidden="true"></i> Intent</h2>
+<p><strong>Decorator</strong> is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.</p>
+<figure class="image"><img src="/images/patterns/content/decorator/decorator.png?id=710c66670c7123e0928d3b3758aea79e" alt="Decorator design pattern" width="640" srcset="/images/patterns/content/decorator/decorator-2x.png?id=736ab07b1d8920ab2c7a70c9cb1305cc 2x" /></figure>
+</div>
+<div class="section problem">
+<h2 id="problem"><i class="fa fa-frown" aria-hidden="true"></i> Problem</h2>
+<p>Imagine that you’re working on a notification library which lets other programs notify their users about important events.</p>
+<p>The initial version of the library was based on the <code>Notifier</code> class that had only a few fields, a constructor and a single <code>send</code> method. The method could accept a message argument from a client and send the message to a list of emails that were passed to the notifier via its constructor. A third-party app which acted as a client was supposed to create and configure the notifier object once, and then use it each time something important happened.</p>
+<figure class="image"><img src="/images/patterns/diagrams/decorator/problem1-en.png?id=7658efddaaf43acb64ac63a92025cc1e" alt="Structure of the library before applying the Decorator pattern" width="540" srcset="/images/patterns/diagrams/decorator/problem1-en-2x.png?id=0bf0496ca959de8698bee735e4e62aac 2x" loading="lazy" /><figcaption>
+<p>A program could use the notifier class to send notifications about important events to a predefined set of emails.</p>
+</figcaption></figure>
+<p>At some point, you realize that users of the library expect more than just email notifications. Many of them would like to receive an SMS about critical issues. Others would like to be notified on Facebook and, of course, the corporate users would love to get Slack notifications.</p>
+<figure class="image"><img src="/images/patterns/diagrams/decorator/problem2.png?id=ba5d5e106ea8c4848d60e230feca9135" alt="Structure of the library after implementing other notification types" width="440" srcset="/images/patterns/diagrams/decorator/problem2-2x.png?id=28b2c8509b4e78c031d728424b876ebc 2x" loading="lazy" /><figcaption>
+<p>Each notification type is implemented as a notifier’s subclass.</p>
+</figcaption></figure>
+<p>How hard can that be? You extended the <code>Notifier</code> class and put the additional notification methods into new subclasses. Now the client was supposed to instantiate the desired notification class and use it for all further notifications.</p>
+<p>But then someone reasonably asked you, “Why can’t you use several notification types at once? If your house is on fire, you’d probably want to be informed through every channel.”</p>
+<p>You tried to address that problem by creating special subclasses which combined several notification methods within one class. However, it quickly became apparent that this approach would bloat the code immensely, not only the library code but the client code as well.</p>
+<figure class="image"><img src="/images/patterns/diagrams/decorator/problem3.png?id=f3b3e7a107d870871f2c3167adcb7ccb" alt="Structure of the library after creating class combinations" width="630" srcset="/images/patterns/diagrams/decorator/problem3-2x.png?id=abb7a87b521ce97d7661dd9c0b988cc3 2x" loading="lazy" /><figcaption>
+<p>Combinatorial explosion of subclasses.</p>
+</figcaption></figure>
+<p>You have to find some other way to structure notifications classes so that their number won’t accidentally break some Guinness record.</p>
+</div>
+<div class="section solution">
+<h2 id="solution"><i class="fa fa-smile-beam" aria-hidden="true"></i> Solution</h2>
+<p>Extending a class is the first thing that comes to mind when you need to alter an object’s behavior. However, inheritance has several serious caveats that you need to be aware of.</p>
+<ul>
+<li>Inheritance is static. You can’t alter the behavior of an existing object at runtime. You can only replace the whole object with another one that’s created from a different subclass.</li>
+<li>Subclasses can have just one parent class. In most languages, inheritance doesn’t let a class inherit behaviors of multiple classes at the same time.</li>
+</ul>
+<p>One of the ways to overcome these caveats is by using <em>Aggregation</em> or <em>Composition</em>&nbsp;<button class="pop"><span class="pop-i"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="pop-content"><em>Aggregation</em>: object A contains objects B; B can live without A.<br/><em>Composition</em>: object A consists of objects B; A manages life cycle of B; B can’t live without A.</span></button> instead of <em>Inheritance</em>. Both of the alternatives work almost the same way: one object <em>has a</em> reference to another and delegates it some work, whereas with inheritance, the object itself <em>is</em> able to do that work, inheriting the behavior from its superclass.</p>
+<p>With this new approach you can easily substitute the linked “helper” object with another, changing the behavior of the container at runtime. An object can use the behavior of various classes, having references to multiple objects and delegating them all kinds of work. Aggregation/composition is the key principle behind many design patterns, including Decorator. On that note, let’s return to the pattern discussion.</p>
+<figure class="image"><img src="/images/patterns/diagrams/decorator/solution1-en.png?id=468e68f1e9ae21649d63dd454500741d" alt="Inheritance vs. Aggregation" width="550" srcset="/images/patterns/diagrams/decorator/solution1-en-2x.png?id=0acaa7d75290a1647f5402bc5d1c03e7 2x" loading="lazy" /><figcaption>
+<p>Inheritance vs. Aggregation</p>
+</figcaption></figure>
+<p>“Wrapper” is the alternative nickname for the Decorator pattern that clearly expresses the main idea of the pattern. A <em>wrapper</em> is an object that can be linked with some <em>target</em> object. The wrapper contains the same set of methods as the target and delegates to it all requests it receives. However, the wrapper may alter the result by doing something either before or after it passes the request to the target.</p>
+<p>When does a simple wrapper become the real decorator? As I mentioned, the wrapper implements the same interface as the wrapped object. That’s why from the client’s perspective these objects are identical. Make the wrapper’s reference field accept any object that follows that interface. This will let you cover an object in multiple wrappers, adding the combined behavior of all the wrappers to it.</p>
+<p>In our notifications example, let’s leave the simple email notification behavior inside the base <code>Notifier</code> class, but turn all other notification methods into decorators.</p>
+<figure class="image"><img src="/images/patterns/diagrams/decorator/solution2.png?id=cbee4a27080ce3a0bf773482613e1347" alt="The solution with the Decorator pattern" width="640" srcset="/images/patterns/diagrams/decorator/solution2-2x.png?id=7775f76b94dbd5cd25f711ce81f59262 2x" loading="lazy" /><figcaption>
+<p>Various notification methods become decorators.</p>
+</figcaption></figure>
+<p>The client code would need to wrap a basic notifier object into a set of decorators that match the client’s preferences. The resulting objects will be structured as a stack.</p>
+<figure class="image"><img src="/images/patterns/diagrams/decorator/solution3-en.png?id=b7e2e2036435265350ba0c6796162ab5" alt="Apps might configure complex stacks of notification decorators" width="300" srcset="/images/patterns/diagrams/decorator/solution3-en-2x.png?id=9a4ef2b4267685a83d0233d78775497b 2x" loading="lazy" /><figcaption>
+<p>Apps might configure complex stacks of notification decorators.</p>
+</figcaption></figure>
+<p>The last decorator in the stack would be the object that the client actually works with. Since all decorators implement the same interface as the base notifier, the rest of the client code won’t care whether it works with the “pure” notifier object or the decorated one.</p>
+<p>We could apply the same approach to other behaviors such as formatting messages or composing the recipient list. The client can decorate the object with any custom decorators, as long as they follow the same interface as the others.</p>
+</div>
+<div class="section analogy">
+<h2 id="analogy"><i class="fa fa-car-side" aria-hidden="true"></i> Real-World Analogy</h2>
+<figure class="image"><img src="/images/patterns/content/decorator/decorator-comic-1.png?id=80d95baacbfb91f5bcdbdc7814b0c64d" alt="Example of the Decorator pattern" width="600" srcset="/images/patterns/content/decorator/decorator-comic-1-2x.png?id=ba869f621b6e0ea173fdc2b535fc7eed 2x" loading="lazy" /><figcaption>
+<p>You get a combined effect from wearing multiple pieces of clothing.</p>
+</figcaption></figure>
+<p>Wearing clothes is an example of using decorators. When you’re cold, you wrap yourself in a sweater. If you’re still cold with a sweater, you can wear a jacket on top. If it’s raining, you can put on a raincoat. All of these garments “extend” your basic behavior but aren’t part of you, and you can easily take off any piece of clothing whenever you don’t need it.</p>
+</div>
+<div class="section structure-container">
+<h2 id="structure"><i class="fa fa-sitemap" aria-hidden="true"></i> Structure</h2>
+<div class="structure">
+<div class="struct-image1 struct-image">
+<figure class="image"><img class="structure-img-non-indexed d-none d-xl-block" src="/images/patterns/diagrams/decorator/structure.png?id=8c95d894aecce5315cc1b12093a7ea0c" alt="Structure of the Decorator design pattern" width="480" srcset="/images/patterns/diagrams/decorator/structure-2x.png?id=3cfa1f10417a4ef0c12580bc4a63b80d 2x" loading="lazy" /><img class="structure-img-indexed d-xl-none" src="/images/patterns/diagrams/decorator/structure-indexed.png?id=09401b230a58f2249e4c9a1195d485a0" alt="Structure of the Decorator design pattern" width="500" srcset="/images/patterns/diagrams/decorator/structure-indexed-2x.png?id=2733e7d0e322bfb2f150ccf8a878dbf6 2x" loading="lazy" /></figure>
+</div>
+<ol><li class="struct-li1">
+<p>The <strong>Component</strong> declares the common interface for both wrappers and wrapped objects.</p>
+</li>
+<li class="struct-li2">
+<p><strong>Concrete Component</strong> is a class of objects being wrapped. It defines the basic behavior, which can be altered by decorators.</p>
+</li>
+<li class="struct-li3">
+<p>The <strong>Base Decorator</strong> class has a field for referencing a wrapped object. The field’s type should be declared as the component interface so it can contain both concrete components and decorators. The base decorator delegates all operations to the wrapped object.</p>
+</li>
+<li class="struct-li4">
+<p><strong>Concrete Decorators</strong> define extra behaviors that can be added to components dynamically. Concrete decorators override methods of the base decorator and execute their behavior either before or after calling the parent method.</p>
+</li>
+<li class="struct-li5">
+<p>The <strong>Client</strong> can wrap components in multiple layers of decorators, as long as it works with all objects via the component interface.</p>
+</li></ol>
+<style structure type="text/css" >
+@media (min-width: 1200px) {
+.structure {
+margin: 0;
+width: auto;
+height: 540px;
+}
+
+.struct-image1 {
+left: 200px;
+top: 10px;
+}
+
+.struct-li1 {
+left: 0px;
+top: 70px;
+width: 190px;
+}
+
+.struct-li2 {
+left: 0px;
+top: 210px;
+width: 190px;
+}
+
+.struct-li3 {
+left: 690px;
+top: 190px;
+width: 230px;
+}
+
+.struct-li4 {
+left: 40px;
+top: 380px;
+width: 320px;
+}
+
+.struct-li5 {
+left: 610px;
+top: 20px;
+width: 310px;
+}
+}
+
+</style>
+</div></div>
+<div class="section pseudocode">
+<h2 id="pseudocode"><i class="fa fa-hashtag" aria-hidden="true"></i> Pseudocode</h2>
+<p>In this example, the <strong>Decorator</strong> pattern lets you compress and encrypt sensitive data independently from the code that actually uses this data.</p>
+<figure class="image"><img src="/images/patterns/diagrams/decorator/example.png?id=eec9dc488f00c85f50e764323baa723e" alt="Structure of the Decorator pattern example" width="540" srcset="/images/patterns/diagrams/decorator/example-2x.png?id=4891323a27d5601a174eec366187d833 2x" loading="lazy" /><figcaption>
+<p>The encryption and compression decorators example.</p>
+</figcaption></figure>
+<p>The application wraps the data source object with a pair of decorators. Both wrappers change the way the data is written to and read from the disk:</p>
+<ul>
+<li>
+<p>Just before the data is <strong>written to disk</strong>, the decorators encrypt and compress it. The original class writes the encrypted and protected data to the file without knowing about the change.</p>
+</li>
+<li>
+<p>Right after the data is <strong>read from disk</strong>, it goes through the same decorators, which decompress and decode it.</p>
+</li>
+</ul>
+<p>The decorators and the data source class implement the same interface, which makes them all interchangeable in the client code.</p>
+<figure class="code">
+<pre class="code" lang="pseudocode">// The component interface defines operations that can be
+// altered by decorators.
+interface DataSource is
+    method writeData(data)
+    method readData():data
+
+// Concrete components provide default implementations for the
+// operations. There might be several variations of these
+// classes in a program.
+class FileDataSource implements DataSource is
+    constructor FileDataSource(filename) { ... }
+
+    method writeData(data) is
+        // Write data to file.
+
+    method readData():data is
+        // Read data from file.
+
+// The base decorator class follows the same interface as the
+// other components. The primary purpose of this class is to
+// define the wrapping interface for all concrete decorators.
+// The default implementation of the wrapping code might include
+// a field for storing a wrapped component and the means to
+// initialize it.
+class DataSourceDecorator implements DataSource is
+    protected field wrappee: DataSource
+
+    constructor DataSourceDecorator(source: DataSource) is
+        wrappee = source
+
+    // The base decorator simply delegates all work to the
+    // wrapped component. Extra behaviors can be added in
+    // concrete decorators.
+    method writeData(data) is
+        wrappee.writeData(data)
+
+    // Concrete decorators may call the parent implementation of
+    // the operation instead of calling the wrapped object
+    // directly. This approach simplifies extension of decorator
+    // classes.
+    method readData():data is
+        return wrappee.readData()
+
+// Concrete decorators must call methods on the wrapped object,
+// but may add something of their own to the result. Decorators
+// can execute the added behavior either before or after the
+// call to a wrapped object.
+class EncryptionDecorator extends DataSourceDecorator is
+    method writeData(data) is
+        // 1. Encrypt passed data.
+        // 2. Pass encrypted data to the wrappee's writeData
+        // method.
+
+    method readData():data is
+        // 1. Get data from the wrappee's readData method.
+        // 2. Try to decrypt it if it's encrypted.
+        // 3. Return the result.
+
+// You can wrap objects in several layers of decorators.
+class CompressionDecorator extends DataSourceDecorator is
+    method writeData(data) is
+        // 1. Compress passed data.
+        // 2. Pass compressed data to the wrappee's writeData
+        // method.
+
+    method readData():data is
+        // 1. Get data from the wrappee's readData method.
+        // 2. Try to decompress it if it's compressed.
+        // 3. Return the result.
+
+
+// Option 1. A simple example of a decorator assembly.
+class Application is
+    method dumbUsageExample() is
+        source = new FileDataSource(&quot;somefile.dat&quot;)
+        source.writeData(salaryRecords)
+        // The target file has been written with plain data.
+
+        source = new CompressionDecorator(source)
+        source.writeData(salaryRecords)
+        // The target file has been written with compressed
+        // data.
+
+        source = new EncryptionDecorator(source)
+        // The source variable now contains this:
+        // Encryption &gt; Compression &gt; FileDataSource
+        source.writeData(salaryRecords)
+        // The file has been written with compressed and
+        // encrypted data.
+
+
+// Option 2. Client code that uses an external data source.
+// SalaryManager objects neither know nor care about data
+// storage specifics. They work with a pre-configured data
+// source received from the app configurator.
+class SalaryManager is
+    field source: DataSource
+
+    constructor SalaryManager(source: DataSource) { ... }
+
+    method load() is
+        return source.readData()
+
+    method save() is
+        source.writeData(salaryRecords)
+    // ...Other useful methods...
+
+
+// The app can assemble different stacks of decorators at
+// runtime, depending on the configuration or environment.
+class ApplicationConfigurator is
+    method configurationExample() is
+        source = new FileDataSource(&quot;salary.dat&quot;)
+        if (enabledEncryption)
+            source = new EncryptionDecorator(source)
+        if (enabledCompression)
+            source = new CompressionDecorator(source)
+
+        logger = new SalaryManager(source)
+        salary = logger.load()
+    // ...
+</pre>
+</figure>
+</div>
+<div class="section applicability-container">
+<h2 id="applicability"><i class="fa fa-lightbulb-on" aria-hidden="true"></i> Applicability</h2>
+<div class="applicability">
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the Decorator pattern when you need to be able to assign extra behaviors to objects at runtime without breaking the code that uses these objects.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> The Decorator lets you structure your business logic into layers, create a decorator for each layer and compose objects with various combinations of this logic at runtime. The client code can treat all these objects in the same way, since they all follow a common interface.</p>
+</div>
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the pattern when it’s awkward or not possible to extend an object’s behavior using inheritance.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> Many programming languages have the <code>final</code> keyword that can be used to prevent further extension of a class. For a final class, the only way to reuse the existing behavior would be to wrap the class with your own wrapper, using the Decorator pattern.</p>
+</div>
+</div></div>
+<div class="section checklist">
+<h2 id="checklist"><i class="fa fa-clipboard-list-check" aria-hidden="true"></i> How to Implement</h2>
+<ol>
+<li>
+<p>Make sure your business domain can be represented as a primary component with multiple optional layers over it.</p>
+</li>
+<li>
+<p>Figure out what methods are common to both the primary component and the optional layers. Create a component interface and declare those methods there.</p>
+</li>
+<li>
+<p>Create a concrete component class and define the base behavior in it.</p>
+</li>
+<li>
+<p>Create a base decorator class. It should have a field for storing a reference to a wrapped object. The field should be declared with the component interface type to allow linking to concrete components as well as decorators. The base decorator must delegate all work to the wrapped object.</p>
+</li>
+<li>
+<p>Make sure all classes implement the component interface.</p>
+</li>
+<li>
+<p>Create concrete decorators by extending them from the base decorator. A concrete decorator must execute its behavior before or after the call to the parent method (which always delegates to the wrapped object).</p>
+</li>
+<li>
+<p>The client code must be responsible for creating decorators and composing them in the way the client needs.</p>
+</li>
+</ol>
+</div>
+<div class="section pros-cons">
+<h2 id="pros-cons"><i class="fa fa-balance-scale" aria-hidden="true"></i> Pros and Cons</h2>
+<div class="row"><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> You can extend an object’s behavior without making a new subclass.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> You can add or remove responsibilities from an object at runtime.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> You can combine several behaviors by wrapping an object into multiple decorators.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> <em>Single Responsibility Principle</em>. You can divide a monolithic class that implements many possible variants of behavior into several smaller classes.</li>
+</ul>
+</div><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> It’s hard to remove a specific wrapper from the wrappers stack.</li>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> It’s hard to implement a decorator in such a way that its behavior doesn’t depend on the order in the decorators stack.</li>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> The initial configuration code of layers might look pretty ugly.</li>
+</ul>
+</div></div></div>
+<div class="section relations">
+<h2 id="relations"><i class="fa fa-exchange-alt" aria-hidden="true"></i> Relations with Other Patterns</h2>
+<ul>
+<li>
+<p><a href="/design-patterns/adapter">Adapter</a> provides a completely different interface for accessing an existing object. On the other hand, with the <a href="/design-patterns/decorator">Decorator</a> pattern the interface either stays the same or gets extended. In addition, <em>Decorator</em> supports recursive composition, which isn’t possible when you use <em>Adapter</em>.</p>
+</li>
+<li>
+<p>With <a href="/design-patterns/adapter">Adapter</a> you access an existing object via different interface. With <a href="/design-patterns/proxy">Proxy</a>, the interface stays the same. With <a href="/design-patterns/decorator">Decorator</a> you access the object via an enhanced interface.</p>
+</li>
+<li>
+<p><a href="/design-patterns/chain-of-responsibility">Chain of Responsibility</a> and <a href="/design-patterns/decorator">Decorator</a> have very similar class structures. Both patterns rely on recursive composition to pass the execution through a series of objects. However, there are several crucial differences.</p>
+<p>The <em>CoR</em> handlers can execute arbitrary operations independently of each other. They can also stop passing the request further at any point. On the other hand, various <em>Decorators</em> can extend the object’s behavior while keeping it consistent with the base interface. In addition, decorators aren’t allowed to break the flow of the request.</p>
+</li>
+<li>
+<p><a href="/design-patterns/composite">Composite</a> and <a href="/design-patterns/decorator">Decorator</a> have similar structure diagrams since both rely on recursive composition to organize an open-ended number of objects.</p>
+<p>A <em>Decorator</em> is like a <em>Composite</em> but only has one child component. There’s another significant difference: <em>Decorator</em> adds additional responsibilities to the wrapped object, while <em>Composite</em> just “sums up” its children’s results.</p>
+<p>However, the patterns can also cooperate: you can use <em>Decorator</em> to extend the behavior of a specific object in the <em>Composite</em> tree.</p>
+</li>
+<li>
+<p>Designs that make heavy use of <a href="/design-patterns/composite">Composite</a> and <a href="/design-patterns/decorator">Decorator</a> can often benefit from using <a href="/design-patterns/prototype">Prototype</a>. Applying the pattern lets you clone complex structures instead of re-constructing them from scratch.</p>
+</li>
+<li>
+<p><a href="/design-patterns/decorator">Decorator</a> lets you change the skin of an object, while <a href="/design-patterns/strategy">Strategy</a> lets you change the guts.</p>
+</li>
+<li>
+<p><a href="/design-patterns/decorator">Decorator</a> and <a href="/design-patterns/proxy">Proxy</a> have similar structures, but very different intents. Both patterns are built on the composition principle, where one object is supposed to delegate some of the work to another. The difference is that a <em>Proxy</em> usually manages the life cycle of its service object on its own, whereas the composition of <em>Decorators</em> is always controlled by the client.</p>
+</li>
+</ul>
+</div>
+<div class="section implementations">
+<h2 id="implementations"><i class="fa fa-code" aria-hidden="true"></i> Code Examples</h2>
+<p><a href="/design-patterns/decorator/csharp/example" title="Decorator in C#" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/csharp.svg?id=da64592defc6e86d57c39c66e9de3e58" alt="Decorator in C#" /></a>
+<a href="/design-patterns/decorator/cpp/example" title="Decorator in C++" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/cpp.svg?id=f7782ed8b8666246bfcc3f8fefc3b858" alt="Decorator in C++" /></a>
+<a href="/design-patterns/decorator/go/example" title="Decorator in Go" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/go.svg?id=1a89927eb99b1ea3fde7701d97970aca" alt="Decorator in Go" /></a>
+<a href="/design-patterns/decorator/java/example" title="Decorator in Java" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/java.svg?id=e6d87e2dca08c953fe3acd1275ed4f4e" alt="Decorator in Java" /></a>
+<a href="/design-patterns/decorator/php/example" title="Decorator in PHP" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/php.svg?id=be1906eb26b71ec1d3b93720d6156618" alt="Decorator in PHP" /></a>
+<a href="/design-patterns/decorator/python/example" title="Decorator in Python" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/python.svg?id=6d815d43c0f7050a1151b43e51569c9f" alt="Decorator in Python" /></a>
+<a href="/design-patterns/decorator/ruby/example" title="Decorator in Ruby" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/ruby.svg?id=b065b718c914bf8e960ef731600be1eb" alt="Decorator in Ruby" /></a>
+<a href="/design-patterns/decorator/rust/example" title="Decorator in Rust" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/rust.svg?id=1f5698a4b5ae23fe79413511747e4a87" alt="Decorator in Rust" /></a>
+<a href="/design-patterns/decorator/swift/example" title="Decorator in Swift" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/swift.svg?id=0b716c2d52ec3a48fbe91ac031070c1d" alt="Decorator in Swift" /></a>
+<a href="/design-patterns/decorator/typescript/example" title="Decorator in TypeScript" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="/images/patterns/icons/typescript.svg?id=2239d0f16cb703540c205dd8cb0c0cb7" alt="Decorator in TypeScript" /></a></p>
+</div>
+
+
+    <div class="banner-set2" id="book-promo">
+            <div class="prom banner-content banner-bg banner-striped banner-with-image" data-id="DP: 1: Support our free website and own the eBook!" data-creative-id="standard-en" data-position="content_bottom">
+                <div class="banner-image">
+                    <a href="/design-patterns/book">
+                        <img width="200" height="200" loading="lazy" src="/images/patterns/banners/patterns-book-banner-3.png?id=7d445df13c80287beaab234b4f3b698c" srcset="/images/patterns/banners/patterns-book-banner-3-2x.png?id=0cc3f77ab421d1a5c02ee46488231c3a 2x">
+                    </a>
+                </div>
+
+                <div class="banner-text">
+                    <h3 class="title">Support our free website and own the eBook!</h3>
+                    <ul style="font-size: 14px;">
+                        <li style="margin: 0;">22 design patterns and 8 principles explained in depth.</li>
+                        <li style="margin: 0;">409 well-structured, easy to read, jargon-free pages.</li>
+                        <li style="margin: 0;">225 clear and helpful illustrations and diagrams.</li>
+                        <li style="margin: 0;">An archive with code examples in 11 languages.</li>
+                        <li style="margin: 0;">All devices supported: PDF/EPUB/MOBI/KFX formats.</li>
+                    </ul>
+                    <a class="btn btn-secondary" href="/design-patterns/book"><i class="fa fa-book" aria-hidden="true"></i> Learn more…</a>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+<nav class="prev-next">
+                    <div class="next">
+                <h4>Read next</h4>
+                <a rel="next" href="/design-patterns/facade" class="btn btn-primary">Facade&nbsp;<span class="fa fa-arrow-right"></span></a>
+            </div>
+                            <div class="prev">
+                <h4>Return</h4>
+                <a rel="prev" href="/design-patterns/composite" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp;Composite </a>
+            </div>
+            </nav>
+</div>
+
+<aside class="feature content-secondary">
+    <div class="prom banner-sidebar banner-removable banner-removable-patterns" data-id="DP: Sidebar" data-creative-id="standard-sidebar-en" data-position="sidebar">
+        <div class="banner-inner">
+            <div class="image3d-book-right">
+                <div class="image3d-cover" style="background: #0b3752;">
+                    <a href="/design-patterns/book">
+                        <img width="250" height="375" loading="lazy" src="/images/patterns/book/web-cover-en.png?id=328861769fd11617674e3b8a7e2dd9e7" srcset="/images/patterns/book/web-cover-en-2x.png?id=02940141c5652ed5a426d87390b16366 2x">
+                    </a>
+                </div>
+            </div>
+            <div style="margin-top: 1rem">
+                <p class="text-center" >This article is a part of our eBook<br/><strong>Dive Into Design Patterns</strong>.</p>
+                <a href="/design-patterns/book" class="btn btn-secondary btn-block"><i class="fa fa-book" aria-hidden="true"></i> Learn more…</a>
+            </div>
+        </div>
+    </div>
+
+
+</aside>
+                    </div>
+    </main>
+
+    <aside class="sidebar main-menu">
+    <div class="main-menu-controls">
+        <button class="navigation-toggle"><i class="fa fa-fw fa-times"></i></button>
+    </div>
+    <div class="main-menu-list-wrapper nano">
+        <div class="main-menu-list nano-content">
+            <a class="menu-brand" href="/">
+                                    <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="/images/content-public/logos/logo-new-winter.png?id=85470d71f9cbeab1161d5cabc2e8296a" srcset="/images/content-public/logos/logo-new-winter-2x.png?id=f038fc3f89470da5a11245482c5e75c1 2x">
+                            </a>
+
+            <div class="menu-container" style="position: relative">
+                                <ul class="menu-list trail">
+                            <li class="featured">
+            <a href="/store">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Premium Content
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="/design-patterns/book">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Design Patterns eBook
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="/refactoring/course">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Refactoring Course
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/refactoring/what-is-refactoring">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/refactoring/what-is-refactoring">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/technical-debt">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/when">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/how-to">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/catalog">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/smells">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/refactoring/smells/bloaters">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/smells/long-method">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/large-class">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/primitive-obsession">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/long-parameter-list">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/data-clumps">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/smells/oo-abusers">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/smells/switch-statements">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/temporary-field">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/refused-bequest">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/alternative-classes-with-different-interfaces">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/smells/change-preventers">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/smells/divergent-change">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/shotgun-surgery">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/parallel-inheritance-hierarchies">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/smells/dispensables">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/smells/comments">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/duplicate-code">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/lazy-class">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/data-class">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/dead-code">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/speculative-generality">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/smells/couplers">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/smells/feature-envy">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/inappropriate-intimacy">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/message-chains">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/smells/middle-man">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/smells/other">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/smells/incomplete-library-class">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/techniques">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/refactoring/techniques/composing-methods">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/extract-method">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/inline-method">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/extract-variable">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/inline-temp">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-temp-with-query">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/split-temporary-variable">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/remove-assignments-to-parameters">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-method-with-method-object">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/substitute-algorithm">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/techniques/moving-features-between-objects">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/move-method">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/move-field">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/extract-class">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/inline-class">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/hide-delegate">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/remove-middle-man">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/introduce-foreign-method">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/introduce-local-extension">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/techniques/organizing-data">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/self-encapsulate-field">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-data-value-with-object">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/change-value-to-reference">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/change-reference-to-value">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-array-with-object">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/duplicate-observed-data">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/change-unidirectional-association-to-bidirectional">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/change-bidirectional-association-to-unidirectional">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-magic-number-with-symbolic-constant">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/encapsulate-field">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/encapsulate-collection">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-type-code-with-class">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-type-code-with-subclasses">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-type-code-with-state-strategy">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-subclass-with-fields">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/techniques/simplifying-conditional-expressions">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/decompose-conditional">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/consolidate-conditional-expression">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/consolidate-duplicate-conditional-fragments">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/remove-control-flag">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-nested-conditional-with-guard-clauses">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-conditional-with-polymorphism">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/introduce-null-object">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/introduce-assertion">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/techniques/simplifying-method-calls">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/rename-method">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/add-parameter">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/remove-parameter">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/separate-query-from-modifier">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/parameterize-method">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-parameter-with-explicit-methods">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/preserve-whole-object">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-parameter-with-method-call">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/introduce-parameter-object">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/remove-setting-method">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/hide-method">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-constructor-with-factory-method">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-error-code-with-exception">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-exception-with-test">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/refactoring/techniques/dealing-with-generalization">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/pull-up-field">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/pull-up-method">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/pull-up-constructor-body">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/push-down-method">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/push-down-field">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/extract-subclass">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/extract-superclass">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/extract-interface">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/collapse-hierarchy">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/form-template-method">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-inheritance-with-delegation">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/replace-delegation-with-inheritance">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="trail">
+            <a href="/design-patterns">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Design Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/design-patterns/what-is-pattern">
+                What is a Pattern
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/design-patterns/what-is-pattern">
+                What's a design pattern?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/history">
+                History of patterns
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/why-learn-patterns">
+                Why should I learn patterns?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/criticism">
+                Criticism of patterns
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/classification">
+                Classification of patterns
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/catalog">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="/design-patterns/creational-patterns">
+                Creational Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/design-patterns/factory-method">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/abstract-factory">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/builder">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/prototype">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/singleton">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level trail">
+            <a href="/design-patterns/structural-patterns">
+                Structural Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/design-patterns/adapter">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/bridge">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/composite">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="trail active">
+            <a href="/design-patterns/decorator">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/facade">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/flyweight">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/proxy">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="/design-patterns/behavioral-patterns">
+                Behavioral Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="/design-patterns/chain-of-responsibility">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/command">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/iterator">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/mediator">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/memento">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/observer">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/state">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/strategy">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/template-method">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="/design-patterns/visitor">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="/design-patterns/examples">
+                Code Examples
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="/design-patterns/csharp">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/cpp">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/go">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/java">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/php">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/python">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/ruby">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/rust">
+                Rust
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/swift">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="/design-patterns/typescript">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+                </div>
+
+            <div class="main-menu-aux-controls">
+                <a href="https://refactoring.guru/login" title="Sign in" style=" display: inline-flex; align-items: center; gap: 6px; "><svg style="width: 16px; height: 16px; filter:drop-shadow(0 1px 1px #74261e)" class="inline-block mx-0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor"opacity="0.4" d="M352.7 222.4c3.2 1 6.5 1.6 10 1.6l21.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-21.3 0c-.8 0-1.7 0-2.5 0c-.9 0-1.7-.1-2.5-.1c-1.7-.1-3.4-.2-5-.4C357.4 414 391.1 512 432 512c44.2 0 80-114.6 80-256S476.2 0 432 0c-40.6 0-74.2 96.9-79.3 222.4z"/><path fill="currentColor"class="fa-primary" d="M320 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM125.7 175.5c9.9-9.9 23.4-15.5 37.5-15.5c1.9 0 3.8 .1 5.6 .3L137.6 254c-9.3 28 1.7 58.8 26.8 74.5l86.2 53.9-25.4 88.8c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l28.7-100.4c5.9-20.6-2.6-42.6-20.7-53.9L238 299l30.9-82.4 5.1 12.3C289 264.7 323.9 288 362.7 288l21.3 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-21.3 0c-12.9 0-24.6-7.8-29.5-19.7l-6.3-15c-14.6-35.1-44.1-61.9-80.5-73.1l-48.7-15c-11.1-3.4-22.7-5.2-34.4-5.2c-31 0-60.8 12.3-82.7 34.3L57.4 153.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l23.1-23.1zM91.2 352L32 352c-17.7 0-32 14.3-32 32s14.3 32 32 32l69.6 0c19 0 36.2-11.2 43.9-28.5L157 361.6l-9.5-6c-17.5-10.9-30.5-26.8-37.9-44.9L91.2 352z"/></svg> Sign in</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Contact us"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contact us</a>
+            </div>
+        </div>
+    </div>
+</aside>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a class="navigation-brand" href="/">
+            <img alt="Refactoring.Guru"
+                 src="/images/content-public/logos/logo-new-mobile.png?id=ea18aa9b032eaa92835ed6d472b03b4a"
+                 srcset="/images/content-public/logos/logo-new-mobile-2x.png?id=7ad5648bfd86ae2e8524147a72877c64 2x">
+        </a>
+
+        <div class="shop-link d-none d-lg-block" style="display: none !important;">
+            <a class="btn btn-md btn-primary btn-featured" href="/store"><svg style="width: 28px; height: 28px; fill: currentColor; display: inline-block; margin-top: -14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M356 60l60 20-60 20-20 60-20-60L256 80l60-20L336 0l20 60zM464 208l48 16-48 16-16 48-16-48-48-16 48-16 16-48 16 48zm-243.8-9.8l33 66.9 73.8 10.7 59.8 8.7-43.3 42.2-53.4 52.1 12.6 73.5L313 512l-53.5-28.1-66-34.7-66 34.7L73.9 512l10.2-59.6 12.6-73.5L43.3 326.8 0 284.6l59.8-8.7 73.8-10.7 33-66.9L193.5 144l26.8 54.2zm26.1 114.4l-25-3.6-11.2-22.6-16.7-33.9-16.7 33.9L165.6 309l-25 3.6-37.4 5.4 27.1 26.4 18.1 17.6L144 387l-6.4 37.3 33.5-17.6 22.3-11.7 22.3 11.7 33.5 17.6L242.9 387l-4.3-24.9 18.1-17.6 27.1-26.4-37.4-5.4z"/></svg>
+                Shop Now!</a>
+        </div>
+
+        <ul class="navigation-menu">
+                            <li class="nav-locale dropdown dropdown-locales">
+                    <button class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-globe" aria-hidden="true"></i> <span class="caption d-none d-lg-inline-block">English</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                                        <a href="https://refactoring.guru/design-patterns/decorator" class="dropdown-item locale-link active" data-locale="en" title="English">English</a>
+                                                                                                                                <a href="https://refactoring.guru/es/design-patterns/decorator" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                                <a href="https://refactoring.guru/fr/design-patterns/decorator" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                <a href="https://refactoring.guru/ja/design-patterns/decorator" class="dropdown-item locale-link " data-locale="ja" title="日本語">日本語</a>
+                                                                                                                                <a href="https://refactoring.guru/ko/design-patterns/decorator" class="dropdown-item locale-link " data-locale="ko" title="한국어">한국어</a>
+                                                                                                                                <a href="https://refactoring.guru/pl/design-patterns/decorator" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                                <a href="https://refactoring.guru/pt-br/design-patterns/decorator" class="dropdown-item locale-link " data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                                <a href="https://refactoring.guru/ru/design-patterns/decorator" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                                <a href="https://refactoring.guru/uk/design-patterns/decorator" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                                <a href="https://refactoringguru.cn/design-patterns/decorator" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+                </li>
+                        <li class="nav-contacts">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contact us">
+                    <i class="fa fa-fw fa-envelope" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Contact us</span>
+                </a>
+            </li>
+                            <li class="nav-user">
+                    <a href="https://refactoring.guru/login" title="Sign in"><span class="sign-in-icon"><svg style="width: 24px; height: 24px; " class="inline-block "  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor"opacity="0.4" d="M352.7 222.4c3.2 1 6.5 1.6 10 1.6l21.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-21.3 0c-.8 0-1.7 0-2.5 0c-.9 0-1.7-.1-2.5-.1c-1.7-.1-3.4-.2-5-.4C357.4 414 391.1 512 432 512c44.2 0 80-114.6 80-256S476.2 0 432 0c-40.6 0-74.2 96.9-79.3 222.4z"/><path fill="currentColor"class="fa-primary" d="M320 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM125.7 175.5c9.9-9.9 23.4-15.5 37.5-15.5c1.9 0 3.8 .1 5.6 .3L137.6 254c-9.3 28 1.7 58.8 26.8 74.5l86.2 53.9-25.4 88.8c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l28.7-100.4c5.9-20.6-2.6-42.6-20.7-53.9L238 299l30.9-82.4 5.1 12.3C289 264.7 323.9 288 362.7 288l21.3 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-21.3 0c-12.9 0-24.6-7.8-29.5-19.7l-6.3-15c-14.6-35.1-44.1-61.9-80.5-73.1l-48.7-15c-11.1-3.4-22.7-5.2-34.4-5.2c-31 0-60.8 12.3-82.7 34.3L57.4 153.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l23.1-23.1zM91.2 352L32 352c-17.7 0-32 14.3-32 32s14.3 32 32 32l69.6 0c19 0 36.2-11.2 43.9-28.5L157 361.6l-9.5-6c-17.5-10.9-30.5-26.8-37.9-44.9L91.2 352z"/></svg></span> <span class="account-icon" style="display:none"><svg style="width: 24px; height: 24px; " class="inline-block "  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor"opacity="0.4" d="M64 270.5l224-196c74.7 65.4 149.4 130.7 224.1 196.1l.4 177.3c.1 35.4-28.6 64.1-64 64.1l-320.4 0c-35.3 0-64-28.6-64-64L64 270.5zM176.1 433.6c.1 .5 .1 1.1 .2 1.6c.2 1 .5 2 .9 3c.8 1.9 2 3.6 3.4 5.1c2.9 2.9 6.9 4.7 11.3 4.7l192 0c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80l-64 0c-22.1 0-42.1 9-56.6 23.4c-7.2 7.2-13.1 15.9-17.1 25.4c-2 4.8-3.6 9.8-4.7 15c-.5 2.6-.9 5.3-1.2 7.9c-.1 1.3-.2 2.7-.3 4.1c-.1 1.4-.1 2.7-.1 4.1c0 .6 0 1.1 .1 1.6zm48.2-184.2c-.1 1.1-.2 2.2-.2 3.2c-.1 1.1-.1 2.2-.1 3.3s0 2.2 .1 3.3c.1 1.1 .1 2.2 .2 3.2c.2 2.1 .5 4.3 1 6.4c.9 4.2 2.1 8.2 3.7 12c3.2 7.7 7.9 14.6 13.7 20.3C254.3 312.8 270.3 320 288 320c35.3 0 64-28.7 64-64s-28.7-64-64-64c-17.7 0-33.7 7.2-45.3 18.7c-5.8 5.8-10.5 12.7-13.7 20.3c-1.6 3.8-2.9 7.8-3.7 12c-.4 2.1-.8 4.2-1 6.4z"/><path fill="currentColor"class="fa-primary" d="M309.1 7.9C297-2.6 279-2.6 266.9 7.9l-256 224c-13.3 11.6-14.6 31.9-3 45.2s31.9 14.6 45.2 3L288 74.5 522.9 280.1c13.3 11.6 33.5 10.3 45.2-3s10.3-33.5-3-45.2L512 185.5 512 64c0-17.7-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32l0 37.5L309.1 7.9zM352 256a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zm-96 96c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80l-64 0z"/></svg></span> <span class="sign-out-icon" style="display:none"><svg style="width: 24px; height: 24px; " class="inline-block "  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor"opacity="0.4" d="M0 256C0 397.4 35.8 512 80 512c25.3 0 47.8-37.5 62.5-96L128 416c-.5 0-1.1 0-1.6 0c-.6 0-1.1-.1-1.6-.1c-1.1-.1-2.1-.3-3.2-.5c-2.1-.4-4.1-1.1-6-1.9c-3.8-1.6-7.3-4-10.2-6.9s-5.2-6.3-6.9-10.2c-.8-1.9-1.4-3.9-1.9-6c-.2-1.1-.4-2.3-.5-3.5c0-.3 0-.6-.1-.8c0-.2 0-.4 0-.7c0-.4 0-.7 0-.7c0-.5 0-.7 0-.9c0-.3 0-.6 0-.9c0 0 0-.3 0-.7c0-.2 0-.4 0-.7c0-.2 0-.4 .1-.8c0-.3 .1-.6 .1-.9c0-.2 .1-.4 .1-.7c.1-.8 .2-1.2 .3-1.7c.5-2.2 1.1-4.2 1.9-6.1c1.6-3.8 4-7.3 6.9-10.2c5.8-5.8 13.8-9.4 22.6-9.4l26.2 0c3.8-29.6 5.8-62.1 5.8-96c0-18.3-.6-36.1-1.7-53.4c-1.7-1.2-3.4-2.5-4.9-4c-.8-.8-1.6-1.6-2.2-2.5s-1.3-1.7-1.9-2.6c-1.2-1.8-2.1-3.6-2.9-5.5s-1.4-3.9-1.8-5.9c-.2-1-.3-2-.4-3s-.1-2-.2-3c0-8.3 3.1-16.5 9.4-22.8C141 63.1 112.8 0 80 0C35.8 0 0 114.6 0 256z"/><path fill="currentColor"class="fa-primary" d="M416 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM221.7 175.5c9.9-9.9 23.4-15.5 37.5-15.5c1.9 0 3.8 .1 5.6 .3L233.6 254c-9.3 28 1.7 58.8 26.8 74.5l86.2 53.9-25.4 88.8c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l28.7-100.4c5.9-20.6-2.6-42.6-20.7-53.9L334 299l30.9-82.4 5.1 12.3C385 264.7 419.9 288 458.7 288l21.3 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-21.3 0c-12.9 0-24.6-7.8-29.5-19.7l-6.3-15c-14.6-35.1-44.1-61.9-80.5-73.1l-48.7-15c-11.1-3.4-22.7-5.2-34.4-5.2c-31 0-60.8 12.3-82.7 34.3l-23.1 23.1c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l23.1-23.1zM187.2 352L128 352c-17.7 0-32 14.3-32 32s14.3 32 32 32l69.6 0c19 0 36.2-11.2 43.9-28.5L253 361.6l-9.5-6c-17.5-10.9-30.5-26.8-37.9-44.9L187.2 352z"/></svg></span> <span class="caption d-none d-xl-inline-block">Sign in</span></a>
+                </li>
+                        <li class="nav-menu">
+                <button class="navigation-toggle"><i class="fa fa-fw fa-bars" aria-hidden="true"></i></button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/refactoring">Refactoring</a></li>
+                        <li><a href="/design-patterns">Design Patterns</a></li>
+                        <li><a href="/store">Premium Content</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Forum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic footer-list-right">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="/sendy/form" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2025 <a href="/">Refactoring.Guru</a>. <span style="white-space: nowrap">All rights reserved.</span><br>
+                        <i class="fa fa-fw fa-image"></i> Illustrations by <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-6 mt-4 mt-sm-0">
+                        <ul class="footer-list footer-list-horizontal footer-list-right">
+                            <li><a href="/terms"><span>Terms &amp; Conditions</span></a>
+                            </li>
+                            <li><a href="/privacy-policy"><span>Privacy Policy</span></a>
+                            </li>
+                            <li><a href="/content-usage-policy"><span>Content Usage Policy</span></a>
+                            </li>
+                            <li><a href="/site-about"><span>About us</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <div class="mt-4">
+                                                                    <b>Ukrainian office:</b><br>
+                                    <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="/images/content-public/icons/fa-building.svg?id=afddb5806968b0a9acfc1df75a181234">
+                                        <img class="fa-fw" style="height: 0.8rem;" src="/images/content-public/icons/fa-building.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                                    </object> FOP Olga Skobeleva<br>
+                                    <svg style="width: 16px; height: 16px; margin-right: 1px; fill: currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0 -96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg> Abolmasova 7<br>
+                                    <span style="margin-left: 21px;">Kyiv, Ukraine, 02002</span><br>
+                                    <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+                                
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="mt-4">
+                                <b>Spanish office:</b><br>
+                                <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="/images/content-public/icons/fa-building.svg?id=afddb5806968b0a9acfc1df75a181234">
+                                    <img class="fa-fw" style="height: 0.8rem;" src="/images/content-public/icons/fa-building.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                                </object> Oleksandr Shvets<br>
+                                <svg style="width: 16px; height: 16px; margin-right: 1px; fill: currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0 -96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg> Avda Pamplona 64<br>
+                                <span style="margin-left: 21px;">Pamplona, Spain, 31009</span><br>
+                                <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+                            </div>
+                        </div>
+                    </div>
+                            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script type="text/javascript">
+        paddleInitIntervalRetryCounter = 0;
+        let paddleInitInterval = setInterval(function() {
+            if (typeof Paddle !== 'undefined') {
+                clearInterval(paddleInitInterval);
+                Paddle.Environment.set("production");
+                Paddle.Initialize({
+                    token: "live_1cc84423e0957bf608c4ad8505b",
+                    eventCallback: function(data) {
+                        if (data?.type === 'checkout.ping.size') {
+                            return;
+                        }
+                        const ignoredPaddleEvents = [
+                            'checkout.loaded',
+                            'checkout.closed',
+                            'checkout.completed',
+                            'checkout.items.updated',
+                            'checkout.items.removed',
+                            'checkout.customer.created',
+                            'checkout.customer.updated',
+                            'checkout.customer.removed',
+                            'checkout.payment.selected',
+                            'checkout.payment.initiated',
+                            'checkout.payment.failed',
+                            'checkout.discount.applied',
+                            'checkout.discount.removed',
+                        ]
+                        if (!data?.name || !ignoredPaddleEvents.includes(data?.name)) {
+                            $.ajax({
+                                method: "POST",
+                                url: '/ajax/error',
+                                data: {
+                                    error: 'Paddle client init error.',
+                                    order_id: checkout?.storage?.data?.id,
+                                    data: data,
+                                },
+                                dataType: 'json',
+                                crossDomain: true,
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                timeout: CHECKOUT_AJAX_TIMEOUT
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                paddleInitIntervalRetryCounter++;
+                if (paddleInitIntervalRetryCounter > 20) {
+                    clearInterval(paddleInitInterval);
+                }
+            }
+        }, 500);
+    </script>
+
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=f7ae4adf14bd00338caf8e95da733cc9"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+</html>
