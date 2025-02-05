@@ -6,3 +6,7 @@ public class Main {
         publisher.setNews("New news!"); 
     }
 }
+
+/*
+
+ */
